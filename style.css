@@ -67,7 +67,8 @@ section {
 
 .panel p.active {
     opacity: 1;
-    color: var(--color-secondary);
+    /* color: var(--color-secondary); */
+    color: green;
 }
 
 .timer {

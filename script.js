@@ -1,10 +1,12 @@
 let study = document.getElementById('study');
 let rest = document.getElementById('break');
 
-let presetStudyTime = 25;
-let presetBreakTime = 5;
+// set preset values
+let presetStudyTime = 2;
+let presetBreakTime = 1;
 let presetSecond = '00';
 
+// load webapp 
 window.onload = () => {
     document.getElementById('minute').innerHTML = presetStudyTime;
     document.getElementById('second').innerHTML = presetSecond;
@@ -12,27 +14,54 @@ window.onload = () => {
     study.classList.add('active');
 }
 
+// when click on start button 
 function startTimer() {
-    document.getElementById('start').style.display = 'none';
-    document.getElementById('reset').style.display = 'block';
+    document.getElementById('start').style.display = 'none'; // hide
+    document.getElementById('reset').style.display = 'block'; // display
 
-    presetSecond = 59;
+    secondLeft = 59;
 
-    let studyTimeLeft = presetStudyTime - 1;
-    let breakTimeLeft = presetBreakTime - 1;
+    let studyMinLeft = presetStudyTime - 1;
+    let breakMinLeft = presetBreakTime - 1;
     
     breakCount = 0;
 
     let countdown = () => {
-        document.getElementById('minute').innerHTML = studyTimeLeft;
-        document.getElementById('second').innerHTML = breakTimeLeft;
+        document.getElementById('minute').innerHTML = studyMinLeft;
+        document.getElementById('second').innerHTML = secondLeft;
+
+        secondLeft --;
+
+        // start countdown
+        if (secondLeft < 0) {
+            studyMinLeft--;
+
+            if (studyMinLeft < 0) {
+                if (breakCount % 2 === 0) {
+                    // start break
+                    studyMinLeft = breakMinLeft;
+                    breakCount++;
+
+                    // change the panel
+                    study.classList.remove('active');
+                    rest.classList.add('active');
+                }
+                else {
+                    // continue study
+                    studyMinLeft = presetStudyTime - 1;
+                    breakCount++;
+
+                    // change the panel
+                    study.classList.add('active');
+                    rest.classList.remove('active');
+                }
+            }
+            secondLeft = 59;
+        }
     }
 
-    // console.log(studyTimeLeft);
-    // console.log(breakTimeLeft);
-
-    presetBreakTime = presetBreakTime - 1;
-
+    // run countdown function every 1 sec. 
+    setInterval(countdown, 100)
 }
 
 
