@@ -12,12 +12,15 @@ window.onload = () => {
     document.getElementById('second').innerHTML = presetSecond;
 
     study.classList.add('active');
+
+    // hide reset button
+    document.getElementById('reset').style.display = 'none';
 }
 
 // when click on start button 
 function startTimer() {
-    document.getElementById('start').style.display = 'none'; // hide
-    document.getElementById('reset').style.display = 'block'; // display
+    document.getElementById('start').style.display = 'none'; // hide start button
+    document.getElementById('reset').style.display = 'block'; // display reset button
 
     secondLeft = 59;
 
@@ -62,6 +65,12 @@ function startTimer() {
 
     // run countdown function every 1 sec. 
     setInterval(countdown, 100)
+}
+
+// function to reset the timer by reloading the page. 
+function resetTimer() {
+    //console.log("I am trying to reset timer!")
+    location.reload();
 }
 
 
